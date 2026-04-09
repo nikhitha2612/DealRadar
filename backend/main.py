@@ -69,11 +69,33 @@ async def price_monitor_task():
             
         await asyncio.sleep(15) # Check every 15 seconds for demo
 
+# Global flag to ensure DB is initialized
+db_initialized = False
+
+async def init_db():
+    global db_initialized
+    if not db_initialized:
+        try:
+            async with engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+            db_initialized = True
+            print("Database initialized successfully.")
+        except Exception as e:
+            print(f"Database initialization failed: {e}")
+
 @app.on_event("startup")
 async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    await init_db()
+    # On Vercel, the background task will only run during the request lifetime
+    # but we still start it for compatibility.
     asyncio.create_task(price_monitor_task())
+
+# Add a middleware to ensure DB is initialized even if startup event was skipped
+@app.middleware("http")
+async def ensure_db(request, call_next):
+    if not db_initialized and not request.url.path.startswith("/assets"):
+        await init_db()
+    return await call_next(request)
 
 # Include API routes
 app.include_router(api_router, prefix="/api")

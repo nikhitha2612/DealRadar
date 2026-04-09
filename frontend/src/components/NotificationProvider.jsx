@@ -24,11 +24,19 @@ export const NotificationProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    let timerId;
+    let failCount = 0;
+
     const pollNotifications = async () => {
       if (!user) return;
       try {
         const response = await fetch(`/api/notifications?user_id=${user.uid}`);
-        if (!response.ok) return;
+        if (!response.ok) {
+          failCount++;
+          return;
+        }
+        
+        failCount = 0; // Reset on success
         const data = await response.json();
         
         if (data && data.length > 0) {
@@ -47,14 +55,26 @@ export const NotificationProvider = ({ children }) => {
           }
         }
       } catch (err) {
-        // Silently ignore polling errors
+        failCount++;
+        // If we fail too many times, we'll wait longer (backoff handled by scheduleNext)
+      } finally {
+        // Schedule next poll with backoff
+        scheduleNext();
       }
     };
 
-    const intervalId = setInterval(pollNotifications, 5000);
+    const scheduleNext = () => {
+      // Base wait is 5s, adds up to 30s if multiple failures occur
+      const waitTime = Math.min(5000 + (failCount * 5000), 30000);
+      timerId = setTimeout(pollNotifications, waitTime);
+    };
+
     // Initial fetch
     pollNotifications();
-    return () => clearInterval(intervalId);
+    
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
   }, [addNotification, user]);
 
   return (

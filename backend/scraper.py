@@ -15,7 +15,6 @@ from bs4 import BeautifulSoup
 
 class ManualSearch:
     @staticmethod
-    @staticmethod
     async def get_search_results(query: str):
         # 1. Try DuckDuckGo Lite first (scrape-friendly)
         # 2. Try Google Search directly if DDG fails (more risk of 429, but more data)
@@ -256,13 +255,6 @@ class PriceEngine:
                             if start_idx != -1 and end_idx != -1:
                                 text = text[start_idx:end_idx+1]
                             ai_data_json = json.loads(text)
-                        
-                        start_idx = text.find('{')
-                        end_idx = text.rfind('}')
-                        if start_idx != -1 and end_idx != -1:
-                            text = text[start_idx:end_idx+1]
-                        
-                        ai_data_json = json.loads(text)
                         
                         # Use the same mapping logic
                         comparisons = []

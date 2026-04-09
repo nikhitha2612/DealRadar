@@ -10,6 +10,7 @@ __pycache__/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.vercel
 
 # Databases
 *.db
@@ -31,3 +32,9 @@ build/
 backend/grounding_results.txt
 backend/test_output.txt
 backend/dump.html
+*.txt
+.vercel/
+.agents/
+.windsurf/
+.firebase/
+skills-lock.json

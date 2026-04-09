@@ -7,5 +7,5 @@ Write-Host "🎨 Starting DealRadar Frontend..." -ForegroundColor Magenta
 Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd frontend; npm run dev"
 
 Write-Host "`n✅ Both servers are launching in separate windows." -ForegroundColor Green
-Write-Host "Frontend: http://localhost:5173"
-Write-Host "Backend API Docs: http://localhost:8000/docs"
+Write-Host "Frontend: http://127.0.0.1:5173"
+Write-Host "Backend API Docs: http://127.0.0.1:8000/docs"
