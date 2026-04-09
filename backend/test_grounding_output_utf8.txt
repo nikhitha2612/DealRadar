@@ -1,0 +1,24 @@
+﻿
+Testing Model: gemini-1.5-flash, Tool: google_search_retrieval
+Failed with google_search_retrieval: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateCon
+Failed with [{'google_search_retrieval': {}}]: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateCon
+
+Testing Model: gemini-1.5-flash, Tool: google_search
+Failed with google_search: The only string that can be passed as a tool is 'code_execution'.
+Failed with [{'google_search': {}}]: Unknown field for FunctionDeclaration: google_search
+
+Testing Model: gemini-1.5-pro, Tool: google_search_retrieval
+Failed with google_search_retrieval: 404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateConte
+Failed with [{'google_search_retrieval': {}}]: 404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateConte
+
+Testing Model: gemini-1.5-pro, Tool: google_search
+Failed with google_search: The only string that can be passed as a tool is 'code_execution'.
+Failed with [{'google_search': {}}]: Unknown field for FunctionDeclaration: google_search
+
+Testing Model: gemini-2.0-flash-exp, Tool: google_search_retrieval
+Failed with google_search_retrieval: 404 models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generat
+Failed with [{'google_search_retrieval': {}}]: 404 models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generat
+
+Testing Model: gemini-2.0-flash-exp, Tool: google_search
+Failed with google_search: The only string that can be passed as a tool is 'code_execution'.
+Failed with [{'google_search': {}}]: Unknown field for FunctionDeclaration: google_search
