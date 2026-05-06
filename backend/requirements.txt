@@ -5,3 +5,5 @@ aiosqlite
 httpx
 beautifulsoup4
 pydantic
+google-generativeai
+python-dotenv
